@@ -1,13 +1,19 @@
-require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const connectDB = require('./config/db');
 const authRoutes = require('./routes/auth');
+const mongoose = require('mongoose');
+const MONGO_URI = 'mongodb://localhost:27017/dbwarungmotor'; 
 
 const app = express();
 
 // Connect Database
-connectDB();
+mongoose.connect(MONGO_URI)
+  .then(() => {
+    console.log('Koneksi database berhasil');
+  })
+  .catch((error) => {
+    console.error('Koneksi database gagal:', error);
+  });
 
 // Init Middleware
 app.use(cors({
@@ -19,7 +25,7 @@ app.use(express.json());
 // Define Routes
 app.use('/api/auth', authRoutes);
 
-// Add more routes like /api/products, /api/negotiations, etc.
+// Add more routes /api/products, /api/negotiations, etc.
 
 // Set up the server to listen
 const PORT = process.env.PORT || 5000;
