@@ -1,10 +1,3 @@
-// backend/middlewares/roleCheck.js
-
-/**
- * Middleware untuk memeriksa role pengguna
- * @param {string[]} allowedRoles - Daftar role yang diizinkan
- * @returns {Function} Middleware express
- */
 module.exports = (allowedRoles = []) => {
     return (req, res, next) => {
       // Periksa apakah req.user ada
